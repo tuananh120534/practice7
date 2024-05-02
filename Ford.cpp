@@ -1,4 +1,6 @@
 #include "Ford.h"
+#include <iostream>
+#include <iomanip> // For setprecision
 
 Ford::Ford() : badgeNumber(0), litresOfFuel(60) {}
 
@@ -40,4 +42,10 @@ void Ford::drive(int kms) {
         float co2Emission = kms * 234; // 234g of CO2 per kilometre
         Car::addCO2(co2Emission); // Assuming there's a method in Car class to emit CO2
     }
+}
+
+// For displaying fuel level with one decimal point precision
+std::ostream& operator<<(std::ostream& os, const Ford& ford) {
+    os << "Current fuel level: " << std::fixed << std::setprecision(1) << ford.get_litresOfFuel() << "L";
+    return os;
 }
