@@ -6,19 +6,20 @@
 class Tesla : public Car {
 private:
     char model;
-    float batteryPercentage; // Initially 100%
+    float batteryPercentage;
+
 public:
     Tesla();
     Tesla(char model, int price);
-    
-    char get_model() const;
+
+    char get_model();
     void set_model(char model);
-    
-    float get_batteryPercentage() const;
-    void set_batteryPercentage(float percentage);
-    
+
+    float get_batteryPercentage();
+    void set_batteryPercentage(float batteryPercentage);
+
     void chargeBattery(int mins);
-    void drive(int kms);
+    void drive(int kms) override;
 };
 
-#endif // TESLA_H
+#endif

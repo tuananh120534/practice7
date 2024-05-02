@@ -1,10 +1,10 @@
 #include "Tesla.h"
 
-Tesla::Tesla() : Car(), model('\0'), batteryPercentage(100.0) {}
+Tesla::Tesla() : Car(), model(' '), batteryPercentage(100.0) {}
 
 Tesla::Tesla(char model, int price) : Car(price), model(model), batteryPercentage(100.0) {}
 
-char Tesla::get_model() const {
+char Tesla::get_model() {
     return model;
 }
 
@@ -12,39 +12,36 @@ void Tesla::set_model(char model) {
     this->model = model;
 }
 
-float Tesla::get_batteryPercentage() const {
+float Tesla::get_batteryPercentage() {
     return batteryPercentage;
 }
 
-void Tesla::set_batteryPercentage(float percentage) {
-    if (percentage < 0) {
-        batteryPercentage = 0;
-    } else if (percentage > 100) {
-        batteryPercentage = 100;
+void Tesla::set_batteryPercentage(float batteryPercentage) {
+    if (batteryPercentage < 0) {
+        this->batteryPercentage = 0;
+    } else if (batteryPercentage > 100) {
+        this->batteryPercentage = 100;
     } else {
-        batteryPercentage = percentage;
+        this->batteryPercentage = batteryPercentage;
     }
 }
 
 void Tesla::chargeBattery(int mins) {
-    float charge = mins * 0.5;
-    batteryPercentage += charge;
-    if (batteryPercentage > 100.0) {
-        batteryPercentage = 100.0;
+    batteryPercentage += 0.5 * mins;
+    if (batteryPercentage > 100) {
+        batteryPercentage = 100;
     }
 }
 
 void Tesla::drive(int kms) {
-    while (kms > 0 && batteryPercentage > 0) {
-        int co2_emission = 74; // grams of CO2 per kilometer
-        float battery_used = kms / 5.0; // 1% battery for every 5km driven
-        if (battery_used > batteryPercentage) {
-            battery_used = batteryPercentage;
-            batteryPercentage = 0;
-        } else {
-            batteryPercentage -= battery_used;
+    if (batteryPercentage > 0) {
+        int distance = kms;
+        while (distance > 0 && batteryPercentage > 0) {
+            Car::drive(1);
+            distance--;
+            if (distance % 5 == 0) {
+                batteryPercentage -= 1;
+            }
         }
-        kms -= battery_used * 5;
-        Car::addCO2(co2_emission);
     }
 }
