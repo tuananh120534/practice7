@@ -14,6 +14,9 @@ void Car::set_price(int price) {
     this->price = price;
 }
 
+void Car::set_emissions(int emissions) {
+    this->emissions = emissions;
+}
 int Car::get_emissions() const {
     return emissions;
 }
