@@ -1,8 +1,8 @@
 #include "Ford.h"
 
-Ford::Ford() : Car(), badgeNumber(0), litresOfFuel(60.0) {}
+Ford::Ford() : badgeNumber(0), litresOfFuel(60) {}
 
-Ford::Ford(int badgeNumber, int price) : Car(price), badgeNumber(badgeNumber), litresOfFuel(60.0) {}
+Ford::Ford(int badgeNumber, int price) : Car(price), badgeNumber(badgeNumber), litresOfFuel(60) {}
 
 int Ford::get_badgeNumber() const {
     return badgeNumber;
@@ -16,34 +16,28 @@ float Ford::get_litresOfFuel() const {
     return litresOfFuel;
 }
 
-void Ford::set_litresOfFuel(float litres) {
-    if (litres < 0) {
-        litresOfFuel = 0;
-    } else if (litres > 60) {
-        litresOfFuel = 60;
-    } else {
-        litresOfFuel = litres;
-    }
+void Ford::set_litresOfFuel(float litresOfFuel) {
+    this->litresOfFuel = litresOfFuel;
 }
 
 void Ford::refuel(int litres) {
     litresOfFuel += litres;
-    if (litresOfFuel > 60.0) {
-        litresOfFuel = 60.0;
+    if (litresOfFuel > 60) {
+        litresOfFuel = 60; // Limiting fuel to 60 litres
     }
 }
 
 void Ford::drive(int kms) {
-    while (kms > 0 && litresOfFuel > 0) {
-        int co2_emission = 234; // grams of CO2 per kilometer
-        float fuel_used = kms / 5.0; // 1L of fuel for every 5km driven
-        if (fuel_used > litresOfFuel) {
-            fuel_used = litresOfFuel;
-            litresOfFuel = 0;
+    int fuelUsed = kms / 5; // 1L of fuel for every 5km driven
+    if (litresOfFuel > 0) {
+        if (fuelUsed >= litresOfFuel) {
+            // If there's not enough fuel to cover the distance
+            litresOfFuel = 0; // Ford will stop driving when fuel reaches 0
         } else {
-            litresOfFuel -= fuel_used;
+            litresOfFuel -= fuelUsed;
         }
-        kms -= fuel_used * 5;
-        Car::addCO2(co2_emission);
+        // Calculate CO2 emissions
+        float co2Emission = kms * 234; // 234g of CO2 per kilometre
+        Car::addCO2(co2Emission); // Assuming there's a method in Car class to emit CO2
     }
 }
