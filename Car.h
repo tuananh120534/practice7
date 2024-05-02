@@ -12,7 +12,7 @@ public:
 
     int get_price() const;
     void set_price(int price);
-
+    int set_emissions(int emissions);
     int get_emissions() const;
 
     virtual void drive(int kms);
