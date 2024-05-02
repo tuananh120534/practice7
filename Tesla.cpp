@@ -40,7 +40,7 @@ void Tesla::drive(int kms) {
             Car::drive(1);
             distance--;
             if (distance % 5 == 0) {
-                batteryPercentage -= 1;
+                batteryPercentage -= 0.2;
             }
         }
     }
