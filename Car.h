@@ -4,7 +4,7 @@
 class Car {
 private:
     int price;
-    int emissions;
+    int emissions; // CO2 Emissions
 
 public:
     Car();
@@ -12,10 +12,12 @@ public:
 
     int get_price() const;
     void set_price(int price);
-    void set_emissions(int emissions);
+
     int get_emissions() const;
 
     virtual void drive(int kms);
+
+    void addCO2(int co2_emission);
 };
 
-#endif
+#endif // CAR_H

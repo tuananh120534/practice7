@@ -45,5 +45,6 @@ void Tesla::drive(int kms) {
             batteryPercentage -= battery_used;
         }
         kms -= battery_used * 5;
+        Car::addCO2(co2_emission);
     }
 }

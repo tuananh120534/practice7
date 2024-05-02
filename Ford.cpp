@@ -44,5 +44,6 @@ void Ford::drive(int kms) {
             litresOfFuel -= fuel_used;
         }
         kms -= fuel_used * 5;
+        Car::addCO2(co2_emission);
     }
 }
