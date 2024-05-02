@@ -1,5 +1,5 @@
 #include "Tesla.h"
-#include "Car.h"
+
 Tesla::Tesla() : Car(), model('\0'), batteryPercentage(100.0) {}
 
 Tesla::Tesla(char model, int price) : Car(price), model(model), batteryPercentage(100.0) {}
@@ -36,8 +36,8 @@ void Tesla::chargeBattery(int mins) {
 
 void Tesla::drive(int kms) {
     while (kms > 0 && batteryPercentage > 0) {
-        int co2_emission = 74;
-        int battery_used = kms / 5;
+        int co2_emission = 74; // grams of CO2 per kilometer
+        float battery_used = kms / 5.0; // 1% battery for every 5km driven
         if (battery_used > batteryPercentage) {
             battery_used = batteryPercentage;
             batteryPercentage = 0;
